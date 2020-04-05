@@ -2,7 +2,6 @@
 // Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 using Xenko.Core.Mathematics;
@@ -72,7 +71,7 @@ namespace Xenko.Graphics
                 throw new ArgumentNullException("texture");
 
             // Skip items with null size
-            if (elementSize.Length() < MathUtil.ZeroTolerance)
+            if (elementSize.LengthSquared() < MathUtil.ZeroTolerance)
                 return;
 
             // Calculate the information needed to draw.
@@ -133,7 +132,7 @@ namespace Xenko.Graphics
         protected override void PrepareForRendering()
         {
             // Setup the Transformation matrix of the shader
-            Parameters.Set(SpriteBaseKeys.MatrixTransform, transformationMatrix);
+            Parameters.Set(SpriteBaseKeys.MatrixTransform, ref transformationMatrix);
 
             base.PrepareForRendering();
         }
