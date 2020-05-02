@@ -1,5 +1,5 @@
-using Xenko.Core.Mathematics;
-using Xenko.Engine;
+using Stride.Core.Mathematics;
+using Stride.Engine;
 
 namespace CSharpBeginner.Code
 {
@@ -9,6 +9,7 @@ namespace CSharpBeginner.Code
     public class RemoveEntitiesDemo : SyncScript
     {
         public Entity EntityToClone;
+
         private Entity clonedEntity1;
         private float cloneCounter = 0;
         private float timer = 0;
