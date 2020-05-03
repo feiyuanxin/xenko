@@ -123,6 +123,7 @@ namespace Stride.Physics
             else
             {
                 discreteDynamicsWorld = new BulletSharp.DiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+                discreteDynamicsWorld.SetInternalTickCallback(OnPreSimulationTick, new object(), true);
                 collisionWorld = discreteDynamicsWorld;
             }
 
@@ -700,11 +701,20 @@ namespace Stride.Physics
         /// This event might not be fired by the main thread.
         /// </summary>
         public event EventHandler<SimulationArgs> SimulationEnd;
+        /// <summary>
+        /// Called right before processing a tick of the physics simulation.
+        /// </summary>
+        public event EventHandler<float> PreSimulationTick;
 
         protected virtual void OnSimulationEnd(SimulationArgs e)
         {
             var handler = SimulationEnd;
             handler?.Invoke(this, e);
+        }
+        protected virtual void OnPreSimulationTick(BulletSharp.DynamicsWorld world, float timeStep)
+        {
+            var handler = PreSimulationTick;
+            handler?.Invoke(this, timeStep);
         }
 
         private readonly FastList<ContactPoint> newContacts = new FastList<ContactPoint>();
